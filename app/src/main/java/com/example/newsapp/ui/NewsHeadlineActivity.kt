@@ -1,9 +1,13 @@
 package com.example.newsapp.ui
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
@@ -11,6 +15,7 @@ import com.example.newsapp.common.GenericAdapter
 import com.example.newsapp.databinding.NewsHeadlindActivityBinding
 import com.example.newsapp.network.Article
 import com.example.newsapp.utils.serialize
+import java.util.concurrent.Executor
 
 class NewsHeadlineActivity : AppBaseActivity() {
 
@@ -24,9 +29,11 @@ class NewsHeadlineActivity : AppBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        detectTouchId()
+
         viewModel = ViewModelProvider(this).get(NewsHeadlineViewModel::class.java)
 
-        viewModel.onGetHeadlines()
+//        viewModel.onGetHeadlines()
 
         mAdapter = GenericAdapter(viewModel.mHeadlinesList, this, R.layout.news_headline_cell)
         { view: View, article: Article ->
@@ -51,4 +58,63 @@ class NewsHeadlineActivity : AppBaseActivity() {
 
         }
     }
+
+    fun detectTouchId()
+    {
+        if (!packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT))
+        {
+            viewModel.onGetHeadlines()
+            return
+        }
+
+        val executor = ContextCompat.getMainExecutor(this)
+        val biometricManager = BiometricManager.from(this)
+
+        when (biometricManager.canAuthenticate()) {
+            BiometricManager.BIOMETRIC_SUCCESS ->{
+                authUser(executor)
+            }
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE,
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE,
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED->{
+                viewModel.onGetHeadlines()
+            }
+        }
+
+    }
+
+    private fun authUser(executor: Executor) {
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Authentication Required")
+            .setSubtitle("Important Authentication")
+            .setNegativeButtonText("Cancel")
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_WEAK)
+            .build()
+
+        val biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    viewModel.onGetHeadlines()
+
+                }
+
+                override fun onAuthenticationError(
+                    errorCode: Int, errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    finish()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    finish()
+                }
+            })
+
+        biometricPrompt.authenticate(promptInfo)
+    }
+
 }
