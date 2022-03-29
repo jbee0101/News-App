@@ -77,7 +77,7 @@
                 android:id="@+id/lblDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{item.publishedAt}"
+                android:text="@{item.publishedTime}"
                 android:ellipsize="end"
                 android:textSize="12sp"
                 android:gravity="end"
