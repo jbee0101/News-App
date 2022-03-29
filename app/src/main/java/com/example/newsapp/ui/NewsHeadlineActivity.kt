@@ -1,5 +1,6 @@
 package com.example.newsapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,7 @@ import com.example.newsapp.R
 import com.example.newsapp.common.GenericAdapter
 import com.example.newsapp.databinding.NewsHeadlindActivityBinding
 import com.example.newsapp.network.Article
+import com.example.newsapp.utils.serialize
 
 class NewsHeadlineActivity : AppBaseActivity() {
 
@@ -27,8 +29,12 @@ class NewsHeadlineActivity : AppBaseActivity() {
         viewModel.onGetHeadlines()
 
         mAdapter = GenericAdapter(viewModel.mHeadlinesList, this, R.layout.news_headline_cell)
-        { view: View, headline: Article ->
-            Log.e(TAG, "GenericAdapter onClickItem:  $headline")
+        { view: View, article: Article ->
+            Log.e(TAG, "GenericAdapter onClickItem:  $article")
+
+            val intent = Intent(this, HeadlineDetailActivity::class.java)
+            intent.putExtra("article", article.serialize())
+            startActivity(intent)
         }
 
         val layoutManager = LinearLayoutManager(this)
