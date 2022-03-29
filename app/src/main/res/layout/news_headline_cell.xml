@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.example.newsapp.network.Article" />
+
+        <variable
+            name="holder"
+            type="com.example.newsapp.common.GenericViewHolder" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/colHeadline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{(v) -> holder.OnCellClick(v, item)}"
+            android:orientation="horizontal"
+            android:tag="@{item}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/ivHeadline"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                app:layout_constraintWidth_percent="0.3"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_no_image"
+                imageUrl="@{item.urlToImage}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/lblHeadline" />
+
+            <TextView
+                android:id="@+id/lblHeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@{item.title}"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/ivHeadline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Headline Headline Headline Headline Headline" />
+
+            <TextView
+                android:id="@+id/lblDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{item.description}"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:textColor="@color/grey"
+                app:layout_constraintStart_toStartOf="@+id/lblHeadline"
+                app:layout_constraintTop_toBottomOf="@+id/lblHeadline"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="sub headline sub headline sub headline sub headline sub headline" />
+
+            <TextView
+                android:id="@+id/lblDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{item.publishedAt}"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:gravity="end"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintStart_toStartOf="@+id/lblHeadline"
+                app:layout_constraintTop_toBottomOf="@+id/lblDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="2022-03-27T08:07:23.851088Z" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/colHeadline" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

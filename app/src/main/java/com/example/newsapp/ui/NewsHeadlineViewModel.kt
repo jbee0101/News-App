@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.newsapp.network.ApiClient
+import com.example.newsapp.network.Article
 import com.example.newsapp.network.TopHeadlinesResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,12 +13,13 @@ import retrofit2.Response
 
 class NewsHeadlineViewModel: ViewModel()
 {
-    val newsResponse = MutableLiveData<String>()
+    val newsResponse = MutableLiveData<TopHeadlinesResponse>()
+    var mHeadlinesList: ArrayList<Article> = ArrayList()
 
-    init
-    {
-        newsResponse.value = ""
-    }
+//    init
+//    {
+//        newsResponse.value = ""
+//    }
 
     fun onGetHeadlines()
     {
@@ -32,7 +34,12 @@ class NewsHeadlineViewModel: ViewModel()
                 Log.e("NewsHeadlineViewModel", "onResponse: ${response.body()}")
                 if (response.isSuccessful)
                 {
-                    newsResponse.postValue(response.body().toString())
+                    val body = response.body() as TopHeadlinesResponse
+                    body.articles ?: return
+
+                    mHeadlinesList.addAll(body.articles)
+
+                    newsResponse.postValue(body)
                 }
             }
         })
