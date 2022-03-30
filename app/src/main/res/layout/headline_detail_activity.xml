@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:backgroundTint="?attr/backgroundColor">
 
         <include
             android:id="@+id/appBar"
@@ -42,7 +43,7 @@
                     android:gravity="start"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/titleTextColor"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Headline Headline Headline Headline Headline" />
 
@@ -66,7 +67,6 @@
                     android:text="@{item.description}"
                     android:ellipsize="end"
                     android:textSize="16sp"
-                    android:textColor="@color/grey"
                     app:layout_constraintTop_toBottomOf="@+id/ivHeadline"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="sub headline sub headline sub headline sub headline sub headline" />
@@ -79,7 +79,6 @@
                     android:text="@{item.content}"
                     android:ellipsize="end"
                     android:textSize="14sp"
-                    android:textColor="@color/grey"
                     app:layout_constraintTop_toBottomOf="@+id/lblDescription"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="sub headline sub headline sub headline sub headline sub headline" />

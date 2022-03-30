@@ -54,7 +54,7 @@
                 android:gravity="start"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="?attr/titleTextColor"
                 app:layout_constraintStart_toEndOf="@+id/ivHeadline"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,6 @@
                 android:text="@{item.description}"
                 android:ellipsize="end"
                 android:textSize="12sp"
-                android:textColor="@color/grey"
                 app:layout_constraintStart_toStartOf="@+id/lblHeadline"
                 app:layout_constraintTop_toBottomOf="@+id/lblHeadline"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +92,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black"
+            android:background="?attr/titleTextColor"
             app:layout_constraintTop_toBottomOf="@+id/colHeadline" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,11 +22,6 @@ open class AppBaseActivity : AppCompatActivity()
         apiService = ApiClient.apiService()
     }
 
-    fun showAlert(title: String, message: String?)
-    {
-        //TODO Add alert dialog here
-    }
-
     fun showToast(message: String)
     {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

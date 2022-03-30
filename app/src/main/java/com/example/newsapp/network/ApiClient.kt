@@ -41,13 +41,6 @@ class ApiClient
     {
         private var mApiClient: ApiClient? = null
 
-        fun createClient(baseUrl: String): ApiClient
-        {
-            mApiClient = ApiClient()
-
-            return mApiClient as ApiClient
-        }
-
         fun apiService(): ApiService
         {
             if (mApiClient == null)
