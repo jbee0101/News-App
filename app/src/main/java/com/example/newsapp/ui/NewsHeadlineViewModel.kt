@@ -37,6 +37,7 @@ class NewsHeadlineViewModel: ViewModel()
                     val body = response.body() as TopHeadlinesResponse
                     body.articles ?: return
 
+                    mHeadlinesList.clear()
                     mHeadlinesList.addAll(body.articles)
 
                     newsResponse.postValue(body)

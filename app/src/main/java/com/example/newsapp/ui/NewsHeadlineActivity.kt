@@ -29,9 +29,10 @@ class NewsHeadlineActivity : AppBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(NewsHeadlineViewModel::class.java)
+
         detectTouchId()
 
-        viewModel = ViewModelProvider(this).get(NewsHeadlineViewModel::class.java)
 
 //        viewModel.onGetHeadlines()
 
@@ -80,7 +81,6 @@ class NewsHeadlineActivity : AppBaseActivity() {
                 viewModel.onGetHeadlines()
             }
         }
-
     }
 
     private fun authUser(executor: Executor) {
