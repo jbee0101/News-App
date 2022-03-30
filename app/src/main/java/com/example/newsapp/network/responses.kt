@@ -21,11 +21,6 @@ data class Article(
     var content: String? = null
 )
 {
-//    val publishedTime: String
-//        get() {
-//
-//        }
-
     fun publishedTime(source: String): String
     {
         return if (publishedAt != null) {
@@ -34,7 +29,7 @@ data class Article(
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
             else
                 "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            
+
             val simpleDateFormat = SimpleDateFormat(pattern, Locale.ENGLISH)
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
             val timestamp = Timestamp(simpleDateFormat.parse(publishedAt!!)!!.time)
