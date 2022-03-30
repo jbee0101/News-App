@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface ApiService
 {
     @GET("top-headlines")
-    fun GetTopHeadlines(@Query("sources") sources: String = Constants.SOURCE,
+    fun GetTopHeadlines(@Query("sources") sources: String,
                         @Query("apiKey") apiKey: String = Constants.API_KEY): Call<TopHeadlinesResponse>
 }

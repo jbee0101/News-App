@@ -52,7 +52,7 @@ class NewsHeadlineActivity : AppBaseActivity() {
         viewModel.newsResponse.observe(this) { response ->
 
             Log.e(TAG, "newsResponse: $response")
-            binding.appBar.lblTitle.text = response.articles!![0].author
+            binding.appBar.lblTitle.text = response.articles!![0].source?.name
             binding.pbLoading.visibility = View.GONE
 
             mAdapter.notifyDataSetChanged()
@@ -64,7 +64,7 @@ class NewsHeadlineActivity : AppBaseActivity() {
     {
         if (!packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT))
         {
-            viewModel.onGetHeadlines()
+            viewModel.onGetHeadlines(getString(R.string.source))
             return
         }
 
@@ -78,7 +78,7 @@ class NewsHeadlineActivity : AppBaseActivity() {
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE,
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE,
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED->{
-                viewModel.onGetHeadlines()
+                viewModel.onGetHeadlines(getString(R.string.source))
             }
         }
     }
@@ -97,7 +97,7 @@ class NewsHeadlineActivity : AppBaseActivity() {
                     result: BiometricPrompt.AuthenticationResult
                 ) {
                     super.onAuthenticationSucceeded(result)
-                    viewModel.onGetHeadlines()
+                    viewModel.onGetHeadlines(getString(R.string.source))
 
                 }
 

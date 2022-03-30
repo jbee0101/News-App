@@ -99,7 +99,7 @@
                         android:id="@+id/lblDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{item.publishedTime}"
+                        android:text="@{item.publishedTime(@string/source)}"
                         android:ellipsize="end"
                         android:textSize="14sp"
                         android:gravity="end"

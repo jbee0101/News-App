@@ -36,6 +36,34 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    flavorDimensions "common"
+
+    productFlavors {
+        BBC{
+            dimension "common"
+
+            resValue "string", "app_name", "BBC News"
+            resValue "string", "source", "bbc-news"
+
+            manifestPlaceholders = [
+                    appIcon: "@mipmap/ic_launcher_bbc",
+                    appIconRound: "@mipmap/ic_launcher_bbc_round"
+            ]
+        }
+
+        ABC {
+            dimension "common"
+
+            resValue "string", "app_name", "ABC News"
+            resValue "string", "source", "abc-news"
+
+            manifestPlaceholders = [
+                    appIcon: "@mipmap/ic_launcher_abc",
+                    appIconRound: "@mipmap/ic_launcher_abc_round"
+            ]
+        }
+    }
 }
 
 dependencies {

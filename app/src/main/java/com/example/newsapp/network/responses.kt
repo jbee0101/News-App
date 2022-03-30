@@ -21,15 +21,26 @@ data class Article(
     var content: String? = null
 )
 {
-    val publishedTime: String
-        get() {
-            return if (publishedAt != null) {
-                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-                simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
-                val timestamp = Timestamp(simpleDateFormat.parse(publishedAt!!)!!.time)
-                timestamp.toString()
-            } else ""
-        }
+//    val publishedTime: String
+//        get() {
+//
+//        }
+
+    fun publishedTime(source: String): String
+    {
+        return if (publishedAt != null) {
+
+            val pattern = if (source == "bbc-news")
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            else
+                "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            
+            val simpleDateFormat = SimpleDateFormat(pattern, Locale.ENGLISH)
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
+            val timestamp = Timestamp(simpleDateFormat.parse(publishedAt!!)!!.time)
+            timestamp.toString()
+        } else ""
+    }
 }
 
 data class Source(

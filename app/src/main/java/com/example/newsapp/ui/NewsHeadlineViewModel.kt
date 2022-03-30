@@ -3,9 +3,11 @@ package com.example.newsapp.ui
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.newsapp.network.ApiClient
 import com.example.newsapp.network.Article
 import com.example.newsapp.network.TopHeadlinesResponse
+import com.example.newsapp.utils.Constants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,14 +18,10 @@ class NewsHeadlineViewModel: ViewModel()
     val newsResponse = MutableLiveData<TopHeadlinesResponse>()
     var mHeadlinesList: ArrayList<Article> = ArrayList()
 
-//    init
-//    {
-//        newsResponse.value = ""
-//    }
 
-    fun onGetHeadlines()
+    fun onGetHeadlines(source: String)
     {
-        val call = ApiClient.apiService().GetTopHeadlines()
+        val call = ApiClient.apiService().GetTopHeadlines(sources = source)
         call.enqueue(object : Callback<TopHeadlinesResponse>{
             override fun onFailure(call: Call<TopHeadlinesResponse>, t: Throwable) {
                 Log.e("NewsHeadlineViewModel", "onFailure: ${t.localizedMessage}")

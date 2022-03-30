@@ -15,6 +15,6 @@ class HeadlineDetailActivity : AppBaseActivity() {
 
         val article = intent.getStringExtra("article")?.deserialize(Article::class.java)
         binding.item = article
-        binding.appBar.lblTitle.text = article?.author
+        binding.appBar.lblTitle.text = article?.source?.name
     }
 }
